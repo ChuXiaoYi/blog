@@ -4,6 +4,7 @@ import {Avatar, Card, Col, List, Row, Space, Tag} from "antd";
 import {MessageOutlined, LikeOutlined, StarOutlined, GithubOutlined, createFromIconfontCN} from '@ant-design/icons';
 import Wordcloud from "@/components/WordCloud";
 import {history} from "umi";
+import {IconFont} from "@/components/IconFont";
 
 
 const listData: any[] | undefined = [];
@@ -28,11 +29,6 @@ const IconText = ({icon, text}: { icon: any, text: any }) => (
 
 
 export default function PostList() {
-
-
-  const IconFont = createFromIconfontCN({
-    scriptUrl: '//at.alicdn.com/t/font_2531977_xy9265niq7.js',
-  });
 
   return (
     <Row gutter={[16, 16]}>

@@ -1,35 +1,35 @@
 import React from 'react';
 
-import {
-  BasicLayoutProps,
-  Settings as LayoutSettings,
-} from '@ant-design/pro-layout';
-import {RightContent} from "@/layout/RightContent";
-import {Footer} from "@/layout/Footer";
-import {createFromIconfontCN} from "@ant-design/icons";
+import {BasicLayoutProps, Settings as LayoutSettings,} from '@ant-design/pro-layout';
+import {RightContent} from "@/layouts/RightContent";
+import {Footer} from "@/layouts/Footer";
+import {getLoginGithub} from "@/pages/User/service";
 
-export const layout = ({
-                         initialState,
-                       }: {
-  initialState: { settings?: LayoutSettings };
-}): BasicLayoutProps => {
+
+export async function getInitialState() {
+  return getLoginGithub().then(resp => {
+    console.log(resp)
+    if (resp.data.current_user) {
+      return {
+        currentUser: resp.data.current_user
+      };
+    }
+    return {currentUser: null}
+  })
+}
+
+
+export const layout = ({initialState}: { initialState: { settings?: LayoutSettings, currentUser?: any }; }): BasicLayoutProps => {
   return {
     rightContentRender: () => <RightContent/>,
-    // footerRender: () => <Footer/>,
-    // onPageChange: () => {
-    //   const { currentUser } = initialState;
-    //   const { location } = history;
-    //   // 如果没有登录，重定向到 login
-    //   if (!currentUser && location.pathname !== '/user/login') {
-    //     history.push('/user/login');
-    //   }
-    // },
+    footerRender: () => <Footer/>,
     menuHeaderRender: undefined,
     contentStyle: {
       minHeight: '280px',
       padding: '24px',
       background: 'rgb(239 242 245)',
     },
+    iconfontUrl: "//at.alicdn.com/t/font_2531977_xy9265niq7.js",
     ...initialState?.settings,
   };
 };

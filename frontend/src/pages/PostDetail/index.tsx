@@ -12,6 +12,7 @@ import {createFromIconfontCN, EyeOutlined} from "@ant-design/icons";
 import Tocify from "@/pages/PostDetail/tocify";
 import PostComment from "@/components/PostComment";
 import {history} from "umi";
+import {IconFont} from "@/components/IconFont";
 
 const post = {
   content: "参考文档:\n" +
@@ -344,9 +345,6 @@ const PostDetail = (props: Props) => {
   });
 
   const html = marked(post.content)
-  const IconFont = createFromIconfontCN({
-    scriptUrl: '//at.alicdn.com/t/font_2531977_uc1l08yh2w.js',
-  });
 
 
   return (

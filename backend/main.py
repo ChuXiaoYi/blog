@@ -1,16 +1,14 @@
-# This is a sample Python script.
+from fastapi import FastAPI
+from starlette.middleware.sessions import SessionMiddleware
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+from api.api import api_router
 
+app = FastAPI()
+app.include_router(api_router, prefix='/api')
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+app.add_middleware(SessionMiddleware, **{"secret_key": "cxy", "max_age": 24 * 60 * 60})
 
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    import uvicorn
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    uvicorn.run('main:app', reload=True, port=8080)
